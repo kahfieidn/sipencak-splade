@@ -21,7 +21,9 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'nip',
         'email',
+        'year',
         'password',
     ];
 
@@ -45,6 +47,7 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+
     protected static function boot()
     {
         parent::boot();
@@ -64,5 +67,4 @@ class User extends Authenticatable
     {
         return 'string';
     }
-
 }

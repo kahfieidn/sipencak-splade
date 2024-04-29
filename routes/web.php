@@ -32,14 +32,24 @@ Route::middleware('splade')->group(function () {
     });
 
     Route::middleware('auth')->group(function () {
-        Route::get('/dashboard', function () {
-            return view('dashboard');
-        })->middleware(['verified'])->name('dashboard');
 
-        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+        Route::get('/pre-lifecycle', [App\Http\Controllers\PreLifecycleController::class, 'index'])->name('pre-lifecycle.index');
+        Route::post('/pre-lifecycle', [App\Http\Controllers\PreLifecycleController::class, 'store'])->middleware(['verified'])->name('pre-lifecycle.store');
+
     });
 
-    require __DIR__.'/auth.php';
+    Route::prefix('dashboard/administrator')->group(function () {
+        Route::group(['middleware' => ['role:admin']], function () {
+            Route::get('{year}', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->middleware(['verified'])->name('administrator.dashboard');
+            Route::get('profile/{year}', [ProfileController::class, 'edit'])->name('profile.edit');
+            Route::patch('profile', [ProfileController::class, 'update'])->name('profile.update');
+            Route::delete('profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+            Route::resource('{year}/management_user', App\Http\Controllers\Admin\ManagementUserController::class)->parameters([
+                'management_user' => 'user'
+            ])->names('administrator.management_user');;
+        });
+    });
+
+
+    require __DIR__ . '/auth.php';
 });

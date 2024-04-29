@@ -4,8 +4,7 @@
     <header class="flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full text-sm">
         <nav class="mt-6 relative max-w-[85rem] w-full bg-white border border-gray-200 rounded-[36px] mx-2 py-3 px-4 md:flex md:items-center md:justify-between md:py-0 md:px-6 lg:px-8 xl:mx-auto dark:bg-neutral-800 dark:border-neutral-700" aria-label="Global">
             <div class="flex items-center justify-between">
-                <a class="flex-none text-xl font-semibold dark:text-white" href="#" aria-label="Brand">Sipencak - Apps</a>
-
+                <Link class="flex-none text-xl font-semibold dark:text-white" href="/pre-lifecycle" aria-label="Brand">Sipencak - {{$year->year}}</Link>
                 <!-- Hamburger -->
                 <div class="-mr-2 flex items-center sm:hidden">
                     <button @click="toggle" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
@@ -15,11 +14,12 @@
                         </svg>
                     </button>
                 </div>
-
             </div>
             <div class="hidden transition-all duration-300 basis-full grow md:block">
                 <div class="flex flex-col gap-y-4 gap-x-0 mt-5 md:flex-row md:items-center md:justify-end md:gap-y-0 md:gap-x-7 md:mt-0 md:ps-7">
-                    <Link class="font-medium text-blue-600 md:py-6 dark:text-blue-500" href="/dashboard" aria-current="page">Home</Link>
+                <Link class="font-medium text-blue-600 md:py-6 dark:text-blue-500" href="{{ route('administrator.dashboard', $year) }}" active="{{ request()->routeIs('dashboard', $year) }}" aria-current="page">Home</Link>
+                    <Link class="font-medium text-gray-500 hover:text-blue-600 md:border-gray-300 md:my-6 dark:border-neutral-700 dark:text-neutral-400 dark:hover:text-blue-500" href="{{route('pre-lifecycle.index')}}">Periode Kegiatan</Link>
+                    <Link class="font-medium text-gray-500 hover:text-blue-600 md:border-gray-300 md:my-6 dark:border-neutral-700 dark:text-neutral-400 dark:hover:text-blue-500" href="{{route('administrator.management_user.index', $year)}}">Manajemen PPTK</Link>
                     <!-- Settings Dropdown -->
                     <div class="hidden sm:flex sm:items-center">
                         <x-dropdown placement="bottom-end">
@@ -35,8 +35,14 @@
                             </x-slot>
 
                             <x-slot name="content">
-                                <x-dropdown-link :href="route('profile.edit')">
-                                    {{ __('Profile') }}
+                                <x-dropdown-link :href="route('profile.edit', $year)" :active="request()->routeIs('profile.edit')">
+                                    {{ __('Kelola Kegiatan Belanja') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="route('profile.edit', $year)" :active="request()->routeIs('profile.edit')">
+                                    {{ __('Jadwal Penganggaran') }}
+                                </x-dropdown-link>
+                                <x-dropdown-link :href="route('profile.edit', $year)" :active="request()->routeIs('profile.edit')">
+                                    {{ __('Lihat Rekapitulasi') }}
                                 </x-dropdown-link>
                             </x-slot>
                         </x-dropdown>
@@ -64,7 +70,7 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
+                        <x-dropdown-link :href="route('profile.edit', $year)">
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
@@ -80,10 +86,11 @@
                 </x-dropdown>
             </div>
 
+
             <!-- Responsive Navigation Menu -->
             <div v-bind:class="{ block: toggled, hidden: !toggled }" class="sm:hidden">
                 <div class="pt-2 pb-3 space-y-1">
-                    <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-responsive-nav-link href="{{ route('administrator.dashboard', $year) }}" active="{{ request()->routeIs('dashboard', $year) }}">
                         {{ __('Home') }}
                     </x-responsive-nav-link>
                 </div>
@@ -93,9 +100,8 @@
                     <div class="px-4">
                         <div class="font-medium text-base text-gray-800">Product</div>
                     </div>
-
                     <div class="mt-3 space-y-1">
-                        <x-responsive-nav-link :href="route('profile.edit')">
+                        <x-responsive-nav-link :href="route('profile.edit', $year)" :active="request()->routeIs('profile.edit', $year)">
                             {{ __('Profile') }}
                         </x-responsive-nav-link>
                     </div>
@@ -109,7 +115,7 @@
                     </div>
 
                     <div class="mt-3 space-y-1">
-                        <x-responsive-nav-link :href="route('profile.edit')">
+                        <x-responsive-nav-link :href="route('profile.edit', $year)">
                             {{ __('Profile') }}
                         </x-responsive-nav-link>
 

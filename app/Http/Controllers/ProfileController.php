@@ -6,6 +6,7 @@ use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use App\Models\Periode;
 
 class ProfileController extends Controller
 {
@@ -14,10 +15,11 @@ class ProfileController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function edit(Request $request)
+    public function edit(Request $request, Periode $year)
     {
         return view('profile.edit', [
             'user' => $request->user(),
+            'year' => $year
         ]);
     }
 
@@ -36,7 +38,7 @@ class ProfileController extends Controller
 
         $request->user()->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return back()->with('status', 'profile-updated');
     }
 
     /**
