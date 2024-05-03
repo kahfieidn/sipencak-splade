@@ -35,7 +35,7 @@
                             </x-slot>
 
                             <x-slot name="content">
-                                <x-dropdown-link :href="route('profile.edit', $year)" :active="request()->routeIs('profile.edit')">
+                                <x-dropdown-link :href="route('administrator.management_kegiatan.index', $year)" :active="request()->routeIs('profile.edit')">
                                     {{ __('Kelola Kegiatan Belanja') }}
                                 </x-dropdown-link>
                                 <x-dropdown-link :href="route('profile.edit', $year)" :active="request()->routeIs('profile.edit')">

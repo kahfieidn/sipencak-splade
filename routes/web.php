@@ -47,6 +47,7 @@ Route::middleware('splade')->group(function () {
             Route::resource('{year}/management_user', App\Http\Controllers\Admin\ManagementUserController::class)->parameters([
                 'management_user' => 'user'
             ])->names('administrator.management_user');;
+            Route::resource('{year}/management_kegiatan', App\Http\Controllers\Admin\ManagementKegiatanController::class)->names('administrator.management_kegiatan');;
         });
     });
 

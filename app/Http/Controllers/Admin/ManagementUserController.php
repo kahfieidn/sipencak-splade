@@ -19,7 +19,7 @@ class ManagementUserController extends Controller
     {
         return view('admin.management_user.index', [
             'year' => $year,
-            'users' =>  new Users($year)
+            'users' =>  Users::class
         ]);
     }
 
@@ -29,7 +29,8 @@ class ManagementUserController extends Controller
     public function create(Request $request, Periode $year)
     {
         //
-        $role = Role::all();
+        $role = Role::where('name', 'user')->get();
+
         return view('admin.management_user.create', [
             'year' => $year,
             'role' => $role
@@ -45,6 +46,7 @@ class ManagementUserController extends Controller
         $request->validate([
             'name' => 'required',
             'nip' => 'required',
+            'username' => 'required',
             'email' => 'required',
             'password' => 'required',
             'role' => 'required',
@@ -53,42 +55,76 @@ class ManagementUserController extends Controller
         $user = User::create([
             'name' => $request->name,
             'nip' => $request->nip,
+            'username' => $request->username,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'year' => '2024'
         ]);
         $user->assignRole(2);
 
-
         Toast::title('Data berhasil di Simpan!')
-        ->rightBottom()
-        ->autoDismiss(10);
+            ->rightBottom()
+            ->autoDismiss(10);
         return to_route('administrator.management_user.index', $year);
-
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show()
     {
         //
+
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Request $request, Periode $year, User $user)
     {
         //
+        $role = Role::where('name', 'user')->get();
+
+        return view('admin.management_user.edit', [
+            'year' => $year,
+            'user' => $user,
+            'role' => $role
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Periode $year, User $user)
     {
         //
+        $request->validate([
+            'name' => $request->user['name'],
+            'nip' => $request->user['nip'],
+            'username' => $request->user['username'],
+            'email' => $request->user['email'],
+        ]);
+
+        if ($request->password != null) {
+            $user->update([
+                'name' => $request->user['name'],
+                'nip' => $request->user['nip'],
+                'username' => $request->user['username'],
+                'email' => $request->user['email'],
+                'password' => bcrypt($request->password),
+            ]);
+        }else{
+            $user->update([
+                'name' => $request->user['name'],
+                'nip' => $request->user['nip'],
+                'username' => $request->user['username'],
+                'email' => $request->user['email'],
+            ]);
+        }
+
+        Toast::title('Data berhasil di Simpan!')
+            ->rightBottom()
+            ->autoDismiss(10);
+        return to_route('administrator.management_user.index', $year);
     }
 
     /**
@@ -98,11 +134,10 @@ class ManagementUserController extends Controller
     {
         //
         $user->delete();
-        
+
         Toast::title('User berhasil di hapus!')
             ->rightBottom()
             ->autoDismiss(10);
         return back();
-
     }
 }

@@ -21,8 +21,8 @@ class DatabaseSeeder extends Seeder
         $user1 = \App\Models\User::create([
             'name' => 'Admin',
             'email' => 'admin@gmail.com',
+            'username' => 'admin',
             'nip' => '111111111',
-            'year' => '2024',
             'password' => bcrypt('jika12345'),
         ]);     
         Permission::create(['name' => 'permission_admin']);
@@ -33,8 +33,8 @@ class DatabaseSeeder extends Seeder
         $user2 = \App\Models\User::create([
             'name' => 'User',
             'email' => 'user@gmail.com',
+            'username' => 'user',
             'nip' => '123123',
-            'year' => '2024',
             'password' => bcrypt('jika12345'),
         ]);     
         Permission::create(['name' => 'permission_user']);

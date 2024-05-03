@@ -16,39 +16,35 @@
                         Kelola PPTK
                     </h1>
 
-                    <x-splade-form action="{{route('administrator.management_user.store', $year)}}" method="post">
+                    <x-splade-form :default="['user' => $user, 'year' => $year]" action="{{route('administrator.management_user.update', [$year, $user])}}" method="patch">
 
                         <div class="grid md:grid-cols-2 md:gap-6">
                             <div class="relative z-999 w-full mb-6 group">
-                                <x-splade-input required name="name" type="text" placeholder="Nama Lengkap" label="Nama Lengkap" />
+                                <x-splade-input required name="user.name" type="text" placeholder="Nama Lengkap" label="Nama Lengkap" />
                             </div>
                             <div class="relative z-999 w-full mb-6 group">
-                                <x-splade-input required name="nip" type="text" placeholder="NIP" label="NIP" />
-                            </div>
-                        </div>
-                        <div class="grid md:grid-cols-2 md:gap-6">
-                            <div class="relative z-999 w-full mb-6 group">
-                                <x-splade-input required name="username" type="text" placeholder="Username" label="Username" />
-                            </div>
-                            <div class="relative z-999 w-full mb-6 group">
-                                <x-splade-input required name="password" type="password" placeholder="Password" label="Password" />
+                                <x-splade-input required name="user.nip" type="text" placeholder="NIP" label="NIP" />
                             </div>
                         </div>
                         <div class="grid md:grid-cols-2 md:gap-6">
                             <div class="relative z-999 w-full mb-6 group">
-                                <x-splade-input required name="email" type="email" placeholder="Email" label="Email" />
+                                <x-splade-input required name="user.username" type="text" placeholder="Username" label="Username" />
                             </div>
                             <div class="relative z-999 w-full mb-6 group">
-                            <x-splade-select required label="Role" name="role" :options="$role" option-label="name" option-value="id" />
+                                <x-splade-input name="password" type="password" placeholder="Password" label="Password" />
                             </div>
                         </div>
-
-                        <div class="relative z-0 w-full mb-6 group">
+                        <div class="grid md:grid-cols-2 md:gap-6">
+                            <div class="relative z-999 w-full mb-6 group">
+                                <x-splade-input required name="user.email" type="email" placeholder="Email" label="Email" />
+                            </div>
+                            <div class="relative z-999 w-full mb-6 group">
+                            <x-splade-select required label="Roles" name="user.roles" :options="$role" option-label="name" option-value="id" />
+                            </div>
                         </div>
-
                         <div class="flex justify-end gap-x-2">
                             <x-splade-group>
-                                <x-splade-submit class="" label="Tambahkan" />
+                                <x-splade-submit class="" label="Simpan" />
                             </x-splade-group>
                         </div>
 

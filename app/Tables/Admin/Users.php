@@ -19,7 +19,7 @@ class Users extends AbstractTable
      */
     
 
-    public function __construct(private $year)
+    public function __construct()
     {
         //
     }
@@ -74,8 +74,7 @@ class Users extends AbstractTable
         return QueryBuilder::for($query)
             ->allowedIncludes('')
             ->allowedSorts(['name'])
-            ->allowedFilters(['name', $globalSearch, $yearFilter, $monthFilter])
-            ->where('year', $this->year->year);
+            ->allowedFilters(['name', $globalSearch, $yearFilter, $monthFilter]);
     }
 
     /**
