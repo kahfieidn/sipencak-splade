@@ -43,6 +43,7 @@ class DatabaseSeeder extends Seeder
         $user2->assignRole($role2);
 
         $this->call(PeriodeSeeder::class);
+        $this->call(ProgramSeeder::class);
     
     }
 }

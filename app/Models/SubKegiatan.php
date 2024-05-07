@@ -2,22 +2,23 @@
 
 namespace App\Models;
 
+use App\Models\Kegiatan;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Periode extends Model
+class SubKegiatan extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'year'
+        'kegiatan_id',
+        'kode',
+        'nama_sub_kegiatan',
+        'pagu',
     ];
 
-    public function program()
-    {
-        return $this->hasMany(Program::class);
-    }
+
 
     protected static function boot()
     {
@@ -38,10 +39,4 @@ class Periode extends Model
     {
         return 'string';
     }
-
-    public function getRouteKeyName()
-    {
-        return 'year';
-    }
-
 }

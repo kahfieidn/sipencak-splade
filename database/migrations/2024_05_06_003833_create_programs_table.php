@@ -11,15 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('programs', function (Blueprint $table) {
             $table->uuid('id')->primary()->unique();
-            $table->string('username')->unique();
-            $table->string('email')->unique();
-            $table->string('name');
-            $table->string('nip');
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->foreignUuid('periode_id')->constrained('periodes');
+            $table->string('kode')->unique();
+            $table->string('nama_program');
+            $table->integer('pagu')->default(0);
             $table->timestamps();
         });
     }
@@ -29,8 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('programs');
     }
-
-    
 };

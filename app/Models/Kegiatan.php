@@ -2,22 +2,31 @@
 
 namespace App\Models;
 
+use App\Models\SubKegiatan;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Periode extends Model
+class Kegiatan extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'year'
+        'program_id',
+        'kode',
+        'nama_kegiatan',
     ];
 
     public function program()
     {
-        return $this->hasMany(Program::class);
+        return $this->hasOne(Program::class, 'id', 'program_id');
     }
+
+    public function sub_kegiatan()
+    {
+        return $this->hasMany(SubKegiatan::class);
+    }
+
 
     protected static function boot()
     {
@@ -39,9 +48,5 @@ class Periode extends Model
         return 'string';
     }
 
-    public function getRouteKeyName()
-    {
-        return 'year';
-    }
 
 }

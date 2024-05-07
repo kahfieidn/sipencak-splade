@@ -13,13 +13,6 @@ class PeriodeSeeder extends Seeder
     public function run(): void
     {
         //
-        \App\Models\Periode::create(['year' => '2024']);
-        \App\Models\Periode::create(['year' => '2025']);
-        \App\Models\Periode::create(['year' => '2026']);
-        \App\Models\Periode::create(['year' => '2027']);
-        \App\Models\Periode::create(['year' => '2028']);
-        \App\Models\Periode::create(['year' => '2029']);
-        \App\Models\Periode::create(['year' => '2030']);
 
     }
 }

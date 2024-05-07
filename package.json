@@ -17,5 +17,9 @@
         "tailwindcss": "^3.4.3",
         "vite": "^5.0",
         "vue": "^3.4"
+    },
+    "dependencies": {
+        "@preline/tabs": "^2.1.0",
+        "preline": "^2.1.0"
     }
 }
