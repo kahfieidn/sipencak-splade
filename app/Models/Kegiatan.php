@@ -15,6 +15,7 @@ class Kegiatan extends Model
         'program_id',
         'kode',
         'nama_kegiatan',
+        'status',
     ];
 
     public function program()

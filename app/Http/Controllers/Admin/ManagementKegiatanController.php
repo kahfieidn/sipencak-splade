@@ -37,10 +37,11 @@ class ManagementKegiatanController extends Controller
     public function create(Request $request, Periode $year)
     {
         //
-        
+        $programs = Program::all();
         return view('admin.management_kegiatan.create', [
             'year' => $year,
             'key' => $request->key,
+            'programs' => $programs,
         ]);
     }
 
@@ -56,14 +57,26 @@ class ManagementKegiatanController extends Controller
                 'nama_program' => 'required',
                 'status' => 'required',
             ]);
-
             Program::create([
                 'kode' => $request->kode,
                 'nama_program' => $request->nama_program,
                 'status' => $request->status,
                 'periode_id' => $year->id,
             ]);
-
+            return back();
+        }else if($request->has('Kegiatan')){
+            $request->validate([
+                'kode' => 'required',
+                'program_id' => 'required',
+                'nama_kegiatan' => 'required',
+                'status' => 'required',
+            ]);
+            Kegiatan::create([
+                'kode' => $request->kode,
+                'nama_kegiatan' => $request->nama_kegiatan,
+                'status' => $request->status,
+                'program_id' => $request->program_id,
+            ]);
             return back();
         }
     }
